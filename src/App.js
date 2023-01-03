@@ -1,12 +1,12 @@
 import { useState } from 'react';
+
 import Cart from './components/Cart/Cart';
+import CartProvider from './components/context/CartProvider';
 import Meals from './components/Meals/Meals';
 import ToolBar from './components/shared/ToolBar';
 
 function App() {
   const [cartIsShown, setCartIsShown] = useState(false);
-
-  const items = [{id: 1, name: 'Pepe'}];
 
   const showCartModal = () => {
     setCartIsShown(true);
@@ -21,13 +21,13 @@ function App() {
   }
 
   return (
-    <>
-      {cartIsShown && <Cart cartItems={items} onClose={hideCartModal} onOrder={orderCartItems}/>}
+    <CartProvider>
+      {cartIsShown && <Cart onClose={hideCartModal} onOrder={orderCartItems}/>}
       <ToolBar onShowCart={showCartModal}/>
       <main>
         <Meals />
       </main>
-    </>
+    </CartProvider>
   );
 }
 
