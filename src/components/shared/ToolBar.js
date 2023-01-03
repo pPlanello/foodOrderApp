@@ -1,5 +1,5 @@
 import foodImage from '../assets/food_background.jpg'
-import ButtonToolBar from './ButtonToolBar';
+import ButtonToolBar from './ButtonToolBar/ButtonToolBar';
 import classes from './ToolBar.module.css';
 
 const ToolBar = (props) => {

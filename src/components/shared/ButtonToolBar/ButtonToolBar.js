@@ -1,5 +1,5 @@
 import classes from './ButtonToolBar.module.css';
-import CartIcon from '../assets/CartIcon';
+import CartIcon from '../../assets/CartIcon';
 
 const ButtonToolBar = (props) => {
     return (
