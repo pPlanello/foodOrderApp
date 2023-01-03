@@ -3,7 +3,7 @@ import classes from './MealItemForm.module.css';
 
 const MealItemFrom = (props) => {
     const inputConfig = {
-        id: 'amount',
+        id: 'amount' + props.id,
         type: 'number',
         min: '1',
         max: '5',
