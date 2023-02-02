@@ -7,25 +7,30 @@ import { onValue, ref } from 'firebase/database';
 
 const AvailableMeals = (props) => {
     const [meals, setMeals] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        return getMeals(setMeals);
-    }, []);
+    useEffect(() => getMeals(setMeals, setIsLoading), []);
 
-    const mealsList = meals.map(meal =>
-        <MealItem
-            key={meal.id}
-            id={meal.id}
-            name={meal.name}
-            description={meal.description}
-            price={meal.price} />
-    );
+    if (isLoading) {
+        return (
+            <section className={classes.MealsLoading}>
+                <p>Loaging...</p>
+            </section>
+        );
+    }
 
     return (
         <section className={classes.meals}>
             <Card>
-                <ul>
-                    {mealsList}
+                <ul>{
+                    meals.map(meal =>
+                        <MealItem
+                            key={meal.id}
+                            id={meal.id}
+                            name={meal.name}
+                            description={meal.description}
+                            price={meal.price} />
+                    )}
                 </ul>
             </Card>
         </section>
@@ -35,7 +40,7 @@ const AvailableMeals = (props) => {
 export default AvailableMeals;
 
 
-const getMeals = (setMeals) => {
+const getMeals = (setMeals, setIsLoading) => {
     const query = ref(db, 'meals');
 
     return onValue(query, snapshot => {
@@ -55,5 +60,6 @@ const getMeals = (setMeals) => {
         });
 
         setMeals(transforMeals);
+        setIsLoading(false);
     });
 }
