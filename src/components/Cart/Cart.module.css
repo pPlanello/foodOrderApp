@@ -16,25 +16,38 @@
 }
 
 .actions {
-  text-align: right;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
 }
 
 .actions button {
   font: inherit;
+  color: #5a1a01;
   cursor: pointer;
   background-color: transparent;
-  border: 1px solid #8a2b06;
-  padding: 0.5rem 2rem;
+  border: none;
   border-radius: 25px;
-  margin-left: 1rem;
+  padding: 0.5rem 2rem;
 }
 
 .actions button:hover,
 .actions button:active {
+  background-color: #ffe6dc;
+  border: 1px solid #5a1a01;
+}
+
+.actions .submit {
+  border: 1px solid #5a1a01;
   background-color: #5a1a01;
-  border-color: #5a1a01;
   color: white;
 }
+
+.actions .submit:hover,
+.actions .submit:active {
+  background-color: #7a2706;
+}
+
 .actions button:disabled {
   border: 1px solid #999999;
   background-color: #cccccc;
