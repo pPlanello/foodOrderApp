@@ -63,3 +63,12 @@
     border-color: #aa0b20;
     background-color: #ffeff1;
 }
+
+.invalid span {
+    margin-left: 1rem;
+    color: #ca3e51;
+}
+
+.labelTitle {
+    display: flex;
+}
