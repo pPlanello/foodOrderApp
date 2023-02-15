@@ -1,4 +1,7 @@
 import { useContext, useState } from 'react';
+import { db } from '../firebase/firebase';
+import { ref, set } from 'firebase/database';
+import { v4 as uuid} from 'uuid';
 
 import CartItem from './CartItem';
 import CartContext from '../context/CartContext';
@@ -25,6 +28,10 @@ const Cart = (props) => {
         setIsCheckout(true);
     }
 
+    const submitOrderHandler = (userData) => {
+        submitOrderMealsFromFirebase(userData, cartContext.items);
+    }
+
     return (
         <Modal onClose={props.onClose}>
             <ul className={classes['cart-items']}>
@@ -42,7 +49,7 @@ const Cart = (props) => {
                 <span>Total Amount:</span>
                 <span>{totalAmount} €</span>
             </div>
-            {isCheckout && <CheckoutForm onCancel={props.onClose}/>}
+            {isCheckout && <CheckoutForm onSubmit={submitOrderHandler} onCancel={props.onClose}/>}
             {
                 !isCheckout &&
                 <div className={classes.actions}>
@@ -64,3 +71,19 @@ const Cart = (props) => {
 };
 
 export default Cart;
+
+
+const submitOrderMealsFromFirebase = (userData, orderItems) => {
+
+    const ordersBody = {
+        user: userData,
+        orderItems,
+        orderDate: new Date().toISOString()
+    }
+
+    console.log(ordersBody)
+    const idOrder = uuid();
+
+    const ordersDataBase = ref(db, 'orders/' + idOrder)
+    set(ordersDataBase, ordersBody).catch(alert);
+}

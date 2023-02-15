@@ -38,14 +38,18 @@ const CheckoutForm = (props) => {
             postal: isCityValid
         });
 
-        console.log(formInputsValidity);
         const isFormValid = isNameValid && isStreetValid && isPostalValid && isCityValid;
-        console.log(isFormValid);
 
         if (!isFormValid) {
             return;
         }
 
+        props.onSubmit({
+            name,
+            street,
+            city,
+            postal
+        });
     }
 
     return (

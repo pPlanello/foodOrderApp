@@ -9,7 +9,7 @@ const AvailableMeals = (props) => {
     const [meals, setMeals] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => getMeals(setMeals, setIsLoading), []);
+    useEffect(() => getMealsFromFirebase(setMeals, setIsLoading), []);
 
     if (isLoading) {
         return (
@@ -40,10 +40,10 @@ const AvailableMeals = (props) => {
 export default AvailableMeals;
 
 
-const getMeals = (setMeals, setIsLoading) => {
-    const query = ref(db, 'meals');
+const getMealsFromFirebase = (setMeals, setIsLoading) => {
+    const mealsDataBase = ref(db, 'meals');
 
-    return onValue(query, snapshot => {
+    return onValue(mealsDataBase, snapshot => {
         const data = snapshot.val();
 
         const transforMeals = [];
